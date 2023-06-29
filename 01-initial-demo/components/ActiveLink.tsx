@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import React, { FC, PropsWithChildren } from 'react';
+import { CSSProperties, FC, PropsWithChildren } from 'react';
 import { useRouter } from 'next/router';
 
 interface Props {
@@ -15,7 +15,7 @@ const ActiveLink: FC<PropsWithChildren<Props>> = ({ children, href }) => {
   );
 };
 
-const style = {
+const style: CSSProperties = {
   color: '#0070f3',
   textDecoration: 'underline',
 };

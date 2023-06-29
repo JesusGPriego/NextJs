@@ -1,5 +1,5 @@
+import { FC } from 'react';
 import { ScriptProps } from 'next/script';
-import { FC, ReactElement } from 'react';
 
 const DarkLayout: FC<ScriptProps> = ({ children }) => {
   return (
