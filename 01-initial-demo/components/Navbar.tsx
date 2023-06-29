@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styles from './NavBar.module.css';
 import ActiveLink from './ActiveLink';
-export const Navbar = () => {
+export const Navbar: FC = () => {
   const menuItems = [
     {
       text: 'Home',

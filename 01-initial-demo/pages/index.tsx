@@ -1,18 +1,26 @@
-import Head from 'next/head';
 import Link from 'next/link';
 import { Inter } from 'next/font/google';
-import styles from '@/styles/Home.module.css';
-import Navbar from '../components/Navbar';
 import MainLayout from '@/components/layouts/MainLayout';
+import DarkLayout from '@/components/layouts/DarkLayout';
+import { ReactElement } from 'react';
+import { NextPageWithLayout } from './_app';
 
 const inter = Inter({ subsets: ['latin'] });
 
-export default function Home() {
+const Home: NextPageWithLayout = () => {
+  return (
+    <Link href='/about'>
+      <h1>Ir a About</h1>
+    </Link>
+  );
+};
+
+export default Home;
+
+Home.getLayout = function getLayout(page: ReactElement) {
   return (
     <MainLayout>
-      <Link href='/about'>
-        <h1>Ir a About</h1>
-      </Link>
+      <DarkLayout>{page}</DarkLayout>
     </MainLayout>
   );
-}
+};

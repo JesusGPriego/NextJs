@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { FC } from 'react';
 import Head from 'next/head';
 import Navbar from '../Navbar';
 import styles from './MainLayout.module.css';
+import { ScriptProps } from 'next/script';
 
-const MainLayout = ({ children }) => {
+const MainLayout: FC<ScriptProps> = ({ children }) => {
   return (
     <>
       <Head>
