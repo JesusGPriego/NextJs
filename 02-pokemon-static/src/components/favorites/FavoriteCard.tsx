@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { useRouter } from 'next/router';
 import { Grid, Card } from '@nextui-org/react';
 import Image from 'next/image';
 
@@ -7,6 +8,12 @@ interface Props {
 }
 
 export const FavoriteCard: FC<Props> = ({ id }) => {
+  const router = useRouter();
+
+  const onPress = () => {
+    router.push(`/pokemon/${id}`);
+  };
+
   return (
     <Grid xs={6} sm={3} md={2} xl={1}>
       <Card
@@ -15,6 +22,7 @@ export const FavoriteCard: FC<Props> = ({ id }) => {
         css={{
           padding: 10,
         }}
+        onPress={onPress}
       >
         <div
           style={{
