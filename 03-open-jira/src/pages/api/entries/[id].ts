@@ -22,8 +22,8 @@ export default function handler(
   switch (req.method) {
     case 'PUT':
       return updateEntry(req, res);
-    // case 'GET':
-    //   return getEntry(req, res);
+    case 'GET':
+      return getEntry(req, res);
 
     default:
       return res.status(400).json({ message: 'Method not valid' });
