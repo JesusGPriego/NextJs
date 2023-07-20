@@ -17,7 +17,6 @@ export const EntryCard: FC<Props> = ({ entry }) => {
 
   const onDragEnd = () => {
     endDragging();
-    console.log({ hooola: 'xdd' });
   };
 
   return (
