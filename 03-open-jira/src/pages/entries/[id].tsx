@@ -23,6 +23,7 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import { Entry, EntryStatus } from '@/interfaces';
 import { dbEntries } from '../../../database';
 import { EntriesContext } from '@/context/entries';
+import { dateUtils } from '@/utils';
 interface Props {
   entry: Entry;
 }
@@ -60,9 +61,9 @@ const EntryPage: FC<Props> = (props) => {
     updateEntry(entry._id, status, InputValue);
   };
 
-  const deleteEntryhandler =  () => {
-     deleteEntry(entry._id);
-    router.push('/')
+  const deleteEntryhandler = () => {
+    deleteEntry(entry._id);
+    router.push('/');
   };
 
   return (
@@ -78,7 +79,9 @@ const EntryPage: FC<Props> = (props) => {
           <Card>
             <CardHeader
               title={`Entrada: ${InputValue}`}
-              subheader={`Creada hace: ...`}
+              subheader={`Creada hace ${dateUtils.getFormatDistanceToNow(
+                entry.createdAt
+              )}`}
             />
             <CardContent>
               <TextField
