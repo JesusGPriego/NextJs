@@ -1,4 +1,5 @@
 import { FC, PropsWithChildren, useEffect, useReducer } from 'react';
+import { useSnackbar } from 'notistack';
 import { EntriesContext } from './EntriesContext';
 import { entriesReducer } from './entriesReducer';
 import { Entry, EntryStatus } from '@/interfaces';
@@ -12,6 +13,8 @@ const ENTRIES_INITIAL_STATE: EntriesState = {
 };
 export const EntriesProvider: FC<PropsWithChildren> = ({ children }) => {
   const [state, dispatch] = useReducer(entriesReducer, ENTRIES_INITIAL_STATE);
+
+  const { enqueueSnackbar } = useSnackbar();
 
   const addEntry = async (description: string) => {
     const { data } = await entriesApi.post<Entry>('/entries', { description });
@@ -40,6 +43,14 @@ export const EntriesProvider: FC<PropsWithChildren> = ({ children }) => {
       description && (entryToUpdate.description = description);
       // update state aka dispatch
       dispatch({ type: '[Entry] - Update-Entry' });
+      enqueueSnackbar('Entrada actualizada', {
+        variant: 'success',
+        autoHideDuration: 1500,
+        anchorOrigin: {
+          vertical: 'bottom',
+          horizontal: 'right',
+        },
+      });
     } catch (error) {
       console.log({ error });
     }
@@ -58,6 +69,26 @@ export const EntriesProvider: FC<PropsWithChildren> = ({ children }) => {
     }
   };
 
+  const deleteEntry = async (id: string) => {
+    try {
+      await entriesApi.delete<Entry>(`/entries/${id}`);
+      const newEntries = state.entries.filter(
+        (item) => item._id !== id && { item }
+      );
+      dispatch({ type: '[Entry] - Delete-Entry', payload: newEntries });
+      enqueueSnackbar('Entrada eliminada correctamente', {
+        variant: 'success',
+        autoHideDuration: 1500,
+        anchorOrigin: {
+          vertical: 'bottom',
+          horizontal: 'right',
+        },
+      });
+    } catch (error) {
+      console.log({ error });
+    }
+  };
+
   useEffect(() => {
     refreshEntries();
   }, []);
@@ -69,6 +100,7 @@ export const EntriesProvider: FC<PropsWithChildren> = ({ children }) => {
         addEntry,
         getEntries,
         updateEntry,
+        deleteEntry,
       }}
     >
       {children}
